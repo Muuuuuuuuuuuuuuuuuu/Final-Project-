@@ -501,7 +501,7 @@
     <!-- Login/Register Container -->
     <div class="container" id="authContainer">
         <div class="header">
-            <h1><span>🦷</span> คลินิกทันตกรรมสุภัทร</h1>
+            <h1><span></span> คลินิกทันตกรรมสุภัทร</h1>
             <p>ยิ้มสดใส เริ่มต้นที่นี่</p>
         </div>
 
@@ -512,11 +512,9 @@
             <!-- User Type Selection -->
             <div class="user-type-selector">
                 <div class="user-type-btn active" onclick="selectUserType('patient')" id="patientBtn">
-                    <div class="icon">👤</div>
                     <div class="label">คนไข้</div>
                 </div>
                 <div class="user-type-btn" onclick="selectUserType('doctor')" id="doctorBtn">
-                    <div class="icon">👨‍⚕️</div>
                     <div class="label">ทันตแพทย์</div>
                 </div>
             </div>
@@ -578,7 +576,7 @@
                 <div class="form-row">
                     <div class="input-group">
                         <label for="age">อายุ <span class="required">*</span></label>
-                        <input type="number" id="age" required min="1" max="150" placeholder="25">
+                        <input type="number" id="age" required min="1" max="150" placeholder="20">
                     </div>
                     
                     <div class="input-group">
@@ -608,13 +606,13 @@
 
                 <div class="form-row">
                     <div class="input-group">
-                        <label for="phone">เบอร์โทรศัพท์ <span class="required">*</span></label>
-                        <input type="tel" id="phone" required placeholder="0812345678" maxlength="10">
+                        <label for="phone">เบอร์โทรศัพท์ของฉัน <span class="required">*</span></label>
+                        <input type="tel" id="phone" required placeholder="000-000-0000" maxlength="10">
                     </div>
                     
                     <div class="input-group">
-                        <label for="emergencyPhone">เบอร์ฉุกเฉิน <span class="required">*</span></label>
-                        <input type="tel" id="emergencyPhone" required placeholder="0898765432" maxlength="10">
+                        <label for="emergencyPhone">เบอร์ฉุกเฉินของญาติ <span class="required">*</span></label>
+                        <input type="tel" id="emergencyPhone" required placeholder="000-000-0000" maxlength="10">
                     </div>
                 </div>
 
@@ -640,7 +638,7 @@
     <!-- Success Modal -->
     <div id="successModal" class="modal">
         <div class="modal-content">
-            <div class="modal-icon">✅</div>
+            <div class="modal-icon"></div>
             <h3>ลงทะเบียนสำเร็จ!</h3>
             <p id="modalMessage"></p>
             <button class="modal-btn" onclick="closeModal()">เข้าใจแล้ว ไปเข้าสู่ระบบ</button>
@@ -652,21 +650,21 @@
         <div class="home-header">
             <div class="home-header-left">
                 <h1>
-                    <span>🦷</span>
+                    <span></span>
                     <span>คลินิกทันตกรรมสุภัทร</span>
                 </h1>
                 <div id="welcomeMessage"></div>
                 <div class="user-badge" id="userBadge"></div>
             </div>
             <button class="logout-btn" onclick="handleLogout()">
-                🚪 ออกจากระบบ
+                 ออกจากระบบ
             </button>
         </div>
 
         <div class="home-content">
             <!-- ข้อมูลส่วนตัว -->
             <div class="info-section">
-                <h3>📋 ข้อมูลส่วนตัว</h3>
+                <h3> ข้อมูลส่วนตัว</h3>
                 <div class="info-card">
                     <div class="info-row">
                         <div class="info-label">ชื่อ-นามสกุล:</div>
@@ -701,7 +699,7 @@
 
             <!-- ข้อมูลสุขภาพ -->
             <div class="info-section">
-                <h3>🏥 ข้อมูลสุขภาพ</h3>
+                <h3> ข้อมูลสุขภาพ</h3>
                 <div class="info-card">
                     <div class="info-row">
                         <div class="info-label">การแพ้ยา:</div>
@@ -717,19 +715,19 @@
             <!-- ปุ่มดำเนินการ -->
             <div class="action-buttons">
                 <button class="action-btn">
-                    <span class="icon">📅</span>
+                    <span class="icon"></span>
                     <span>นัดหมาย</span>
                 </button>
                 <button class="action-btn">
-                    <span class="icon">📝</span>
+                    <span class="icon"></span>
                     <span>ประวัติการรักษา</span>
                 </button>
                 <button class="action-btn">
-                    <span class="icon">💳</span>
+                    <span class="icon"></span>
                     <span>ชำระเงิน</span>
                 </button>
                 <button class="action-btn">
-                    <span class="icon">📞</span>
+                    <span class="icon"></span>
                     <span>ติดต่อคลินิก</span>
                 </button>
             </div>
@@ -834,27 +832,27 @@
 
             if (!genderElement) {
                 document.getElementById('genderGroup').classList.add('error');
-                document.getElementById('genderError').textContent = '❌ กรุณาเลือกเพศ';
-                showMessage('registerError', '❌ กรุณาเลือกเพศ');
+                document.getElementById('genderError').textContent = ' กรุณาเลือกเพศ';
+                showMessage('registerError', ' กรุณาเลือกเพศ');
                 return;
             }
             const gender = genderElement.value;
 
             if (phone.length !== 10 || !/^\d{10}$/.test(phone)) {
                 document.getElementById('phone').classList.add('error');
-                showMessage('registerError', '❌ เบอร์โทรศัพท์ต้องเป็นตัวเลข 10 หลัก');
+                showMessage('registerError', ' เบอร์โทรศัพท์ต้องเป็นตัวเลข 10 หลัก');
                 return;
             }
 
             if (emergencyPhone.length !== 10 || !/^\d{10}$/.test(emergencyPhone)) {
                 document.getElementById('emergencyPhone').classList.add('error');
-                showMessage('registerError', '❌ เบอร์ฉุกเฉินต้องเป็นตัวเลข 10 หลัก');
+                showMessage('registerError', ' เบอร์ฉุกเฉินต้องเป็นตัวเลข 10 หลัก');
                 return;
             }
 
             if (users[email]) {
                 document.getElementById('registerEmail').classList.add('error');
-                showMessage('registerError', '❌ อีเมลนี้ถูกใช้งานแล้ว กรุณาใช้อีเมลอื่น');
+                showMessage('registerError', ' อีเมลนี้ถูกใช้งานแล้ว กรุณาใช้อีเมลอื่น');
                 return;
             }
 
@@ -873,7 +871,7 @@
             };
             
             saveUsers(users);
-            console.log('✅ บันทึกข้อมูลสำเร็จ!');
+            console.log(' บันทึกข้อมูลสำเร็จ!');
             
             showModal(`${firstName} ${lastName}`);
             e.target.reset();
@@ -888,12 +886,12 @@
             // ตรวจสอบประเภทผู้ใช้
             if (currentUserType === 'doctor') {
                 if (!email.includes('@clinic')) {
-                    showMessage('loginError', '❌ ทันตแพทย์ต้องใช้อีเมล @clinic เท่านั้น');
+                    showMessage('loginError', ' ทันตแพทย์ต้องใช้อีเมล @clinic เท่านั้น');
                     return;
                 }
             } else {
                 if (email.includes('@clinic')) {
-                    showMessage('loginError', '❌ อีเมล @clinic สำหรับทันตแพทย์เท่านั้น กรุณาเลือก "ทันตแพทย์"');
+                    showMessage('loginError', ' อีเมล @clinic สำหรับทันตแพทย์เท่านั้น กรุณาเลือก "ทันตแพทย์"');
                     return;
                 }
             }
@@ -901,12 +899,12 @@
             users = loadUsers();
 
             if (!users[email]) {
-                showMessage('loginError', '❌ อีเมลนี้ยังไม่ได้ลงทะเบียน กรุณาลงทะเบียนก่อน');
+                showMessage('loginError', ' อีเมลนี้ยังไม่ได้ลงทะเบียน กรุณาลงทะเบียนก่อน');
                 return;
             }
 
             if (users[email].password !== password) {
-                showMessage('loginError', '❌ รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง');
+                showMessage('loginError', ' รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง');
                 return;
             }
 
@@ -926,8 +924,7 @@
             document.getElementById('homePage').style.display = 'block';
 
             const isDoctor = email.includes('@clinic');
-            const userTypeText = isDoctor ? 'ทันตแพทย์' : 'คนไข้';
-            const userIcon = isDoctor ? '👨‍⚕️' : '👤';
+            const userTypeText = isDoctor ? 'ทันตแพทย์' : 'คนไข้'
 
             document.getElementById('welcomeMessage').innerHTML = `<p style="font-size: 18px; margin-top: 10px;">สวัสดี คุณ${userData.firstName} ${userData.lastName}</p>`;
             document.getElementById('userBadge').innerHTML = `${userIcon} ${userTypeText}`;
@@ -951,7 +948,7 @@
             document.getElementById('displayDrugAllergy').textContent = userData.drugAllergy;
             document.getElementById('displayCongenitalDisease').textContent = userData.congenitalDisease;
 
-            console.log('✅ เข้าสู่ระบบสำเร็จ:', userData);
+            console.log(' เข้าสู่ระบบสำเร็จ:', userData);
         }
 
         function handleLogout() {
@@ -967,7 +964,7 @@
                 showLogin();
                 clearMessages();
                 
-                console.log('👋 ออกจากระบบสำเร็จ');
+                console.log(' ออกจากระบบสำเร็จ');
             }
         }
 
@@ -1002,8 +999,8 @@
             });
         });
 
-        console.log('🏥 ระบบคลินิกทันตกรรมสุภัทร พร้อมใช้งาน');
-        console.log('👥 จำนวนผู้ใช้ในระบบ:', Object.keys(users).length);
+        console.log(' ระบบคลินิกทันตกรรมสุภัทร พร้อมใช้งาน');
+        console.log(' จำนวนผู้ใช้ในระบบ:', Object.keys(users).length);
     </script>
 </body>
 </html>
