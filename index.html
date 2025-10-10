@@ -541,47 +541,41 @@
 
 
         <div id="registerForm" class="form-container hidden">
-            <h2>ลงทะเบียนผู้ใช้งาน</h2>
+            <h2 id="registerTitle">ลงทะเบียนผู้ใช้งาน</h2>
             <div id="registerSuccess" class="success-message"></div>
             <div id="registerError" class="error-message"></div>
-            
-            <form onsubmit="handleRegister(event)">
+            <!-- ฟอร์มคนไข้ -->
+            <form id="patientRegisterForm" onsubmit="handleRegister(event)" style="display: block;">
                 <div class="input-group">
                     <label for="registerEmail">อีเมล <span class="required">*</span></label>
                     <input type="email" id="registerEmail" required placeholder="your@email.com">
                     <div class="helper-text">ใช้สำหรับเข้าสู่ระบบ</div>
                 </div>
-                
                 <div class="input-group">
                     <label for="registerPassword">รหัสผ่าน <span class="required">*</span></label>
                     <input type="password" id="registerPassword" required placeholder="••••••••" minlength="6">
                     <div class="helper-text">อย่างน้อย 6 ตัวอักษร</div>
                 </div>
-
                 <div class="form-row">
                     <div class="input-group">
                         <label for="firstName">ชื่อ <span class="required">*</span></label>
                         <input type="text" id="firstName" required placeholder="ชื่อจริง">
                     </div>
-                    
                     <div class="input-group">
                         <label for="lastName">นามสกุล <span class="required">*</span></label>
                         <input type="text" id="lastName" required placeholder="นามสกุล">
                     </div>
                 </div>
-
                 <div class="form-row">
                     <div class="input-group">
                         <label for="age">อายุ <span class="required">*</span></label>
                         <input type="number" id="age" required min="1" max="150" placeholder="20">
                     </div>
-                    
                     <div class="input-group">
                         <label for="birthDate">วันเกิด <span class="required">*</span></label>
                         <input type="date" id="birthDate" required>
                     </div>
                 </div>
-
                 <div class="input-group">
                     <label>เพศ <span class="required">*</span></label>
                     <div class="radio-group" id="genderGroup">
@@ -600,32 +594,58 @@
                     </div>
                     <div class="helper-text" id="genderError"></div>
                 </div>
-
                 <div class="form-row">
                     <div class="input-group">
                         <label for="phone">เบอร์โทรศัพท์ของฉัน <span class="required">*</span></label>
                         <input type="tel" id="phone" required placeholder="000-000-0000" maxlength="10">
                     </div>
-                    
                     <div class="input-group">
                         <label for="emergencyPhone">เบอร์ฉุกเฉินของญาติ <span class="required">*</span></label>
                         <input type="tel" id="emergencyPhone" required placeholder="000-000-0000" maxlength="10">
                     </div>
                 </div>
-
                 <div class="input-group">
                     <label for="drugAllergy">การแพ้ยา</label>
                     <textarea id="drugAllergy" placeholder="ระบุยาที่แพ้ (ถ้าไม่มีให้ใส่ว่า ไม่มี)"></textarea>
                 </div>
-
                 <div class="input-group">
                     <label for="congenitalDisease">โรคประจำตัว</label>
                     <textarea id="congenitalDisease" placeholder="ระบุโรคประจำตัว (ถ้าไม่มีให้ใส่ว่า ไม่มี)"></textarea>
                 </div>
-                
                 <button type="submit" class="btn">ลงทะเบียน</button>
             </form>
-            
+            <!-- ฟอร์มทันตแพทย์ -->
+            <form id="doctorRegisterForm" onsubmit="handleRegister(event)" style="display: none;">
+                <div class="input-group">
+                    <label for="doctorEmail">อีเมล <span class="required">*</span></label>
+                    <input type="email" id="doctorEmail" required placeholder="your@clinic">
+                    <div class="helper-text">ใช้อีเมล @clinic เท่านั้น</div>
+                </div>
+                <div class="input-group">
+                    <label for="doctorPassword">รหัสผ่าน <span class="required">*</span></label>
+                    <input type="password" id="doctorPassword" required placeholder="••••••••" minlength="6">
+                    <div class="helper-text">อย่างน้อย 6 ตัวอักษร</div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="doctorFirstName">ชื่อ <span class="required">*</span></label>
+                        <input type="text" id="doctorFirstName" required placeholder="ชื่อจริง">
+                    </div>
+                    <div class="input-group">
+                        <label for="doctorLastName">นามสกุล <span class="required">*</span></label>
+                        <input type="text" id="doctorLastName" required placeholder="นามสกุล">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="doctorLicense">รหัสทันตแพทย์ <span class="required">*</span></label>
+                    <input type="text" id="doctorLicense" required placeholder="เลขที่ใบอนุญาต">
+                </div>
+                <div class="input-group">
+                    <label for="doctorSpecialty">สาขา/ความเชี่ยวชาญ</label>
+                    <input type="text" id="doctorSpecialty" placeholder="ระบุสาขา">
+                </div>
+                <button type="submit" class="btn">ลงทะเบียนทันตแพทย์</button>
+            </form>
             <div class="switch-text">
                 มีบัญชีอยู่แล้ว? <a class="switch-link" onclick="showLogin()">เข้าสู่ระบบ</a>
             </div>
@@ -765,6 +785,16 @@
             document.getElementById('loginForm').classList.add('hidden');
             document.getElementById('registerForm').classList.remove('hidden');
             clearMessages();
+            // แสดงฟอร์มตามประเภทผู้ใช้
+            if (currentUserType === 'doctor') {
+                document.getElementById('registerTitle').textContent = 'ลงทะเบียนทันตแพทย์';
+                document.getElementById('patientRegisterForm').style.display = 'none';
+                document.getElementById('doctorRegisterForm').style.display = 'block';
+            } else {
+                document.getElementById('registerTitle').textContent = 'ลงทะเบียนคนไข้';
+                document.getElementById('patientRegisterForm').style.display = 'block';
+                document.getElementById('doctorRegisterForm').style.display = 'none';
+            }
         }
 
         function showLogin() {
@@ -812,64 +842,94 @@
         function handleRegister(e) {
             e.preventDefault();
             clearMessages();
-            
-            const email = document.getElementById('registerEmail').value.trim();
-            const password = document.getElementById('registerPassword').value;
-            const firstName = document.getElementById('firstName').value.trim();
-            const lastName = document.getElementById('lastName').value.trim();
-            const age = document.getElementById('age').value;
-            const birthDate = document.getElementById('birthDate').value;
-            const genderElement = document.querySelector('input[name="gender"]:checked');
-            const phone = document.getElementById('phone').value.trim();
-            const emergencyPhone = document.getElementById('emergencyPhone').value.trim();
-            const drugAllergy = document.getElementById('drugAllergy').value.trim() || 'ไม่มี';
-            const congenitalDisease = document.getElementById('congenitalDisease').value.trim() || 'ไม่มี';
-
-            if (!genderElement) {
-                document.getElementById('genderGroup').classList.add('error');
-                document.getElementById('genderError').textContent = ' กรุณาเลือกเพศ';
-                showMessage('registerError', ' กรุณาเลือกเพศ');
-                return;
+            if (currentUserType === 'doctor') {
+                // ฟอร์มทันตแพทย์
+                const email = document.getElementById('doctorEmail').value.trim();
+                const password = document.getElementById('doctorPassword').value;
+                const firstName = document.getElementById('doctorFirstName').value.trim();
+                const lastName = document.getElementById('doctorLastName').value.trim();
+                const license = document.getElementById('doctorLicense').value.trim();
+                const specialty = document.getElementById('doctorSpecialty').value.trim();
+                if (!email.endsWith('@clinic')) {
+                    document.getElementById('doctorEmail').classList.add('error');
+                    showMessage('registerError', ' อีเมลทันตแพทย์ต้องลงท้ายด้วย @clinic');
+                    return;
+                }
+                if (users[email]) {
+                    document.getElementById('doctorEmail').classList.add('error');
+                    showMessage('registerError', ' อีเมลนี้ถูกใช้งานแล้ว กรุณาใช้อีเมลอื่น');
+                    return;
+                }
+                if (!license) {
+                    document.getElementById('doctorLicense').classList.add('error');
+                    showMessage('registerError', ' กรุณากรอกรหัสทันตแพทย์');
+                    return;
+                }
+                users[email] = {
+                    password,
+                    firstName,
+                    lastName,
+                    license,
+                    specialty,
+                    registeredDate: new Date().toISOString(),
+                    userType: 'doctor'
+                };
+                saveUsers(users);
+                showModal(`${firstName} ${lastName}`);
+                e.target.reset();
+            } else {
+                // ฟอร์มคนไข้
+                const email = document.getElementById('registerEmail').value.trim();
+                const password = document.getElementById('registerPassword').value;
+                const firstName = document.getElementById('firstName').value.trim();
+                const lastName = document.getElementById('lastName').value.trim();
+                const age = document.getElementById('age').value;
+                const birthDate = document.getElementById('birthDate').value;
+                const genderElement = document.querySelector('input[name="gender"]:checked');
+                const phone = document.getElementById('phone').value.trim();
+                const emergencyPhone = document.getElementById('emergencyPhone').value.trim();
+                const drugAllergy = document.getElementById('drugAllergy').value.trim() || 'ไม่มี';
+                const congenitalDisease = document.getElementById('congenitalDisease').value.trim() || 'ไม่มี';
+                if (!genderElement) {
+                    document.getElementById('genderGroup').classList.add('error');
+                    document.getElementById('genderError').textContent = ' กรุณาเลือกเพศ';
+                    showMessage('registerError', ' กรุณาเลือกเพศ');
+                    return;
+                }
+                const gender = genderElement.value;
+                if (phone.length !== 10 || !/^\d{10}$/.test(phone)) {
+                    document.getElementById('phone').classList.add('error');
+                    showMessage('registerError', ' เบอร์โทรศัพท์ต้องเป็นตัวเลข 10 หลัก');
+                    return;
+                }
+                if (emergencyPhone.length !== 10 || !/^\d{10}$/.test(emergencyPhone)) {
+                    document.getElementById('emergencyPhone').classList.add('error');
+                    showMessage('registerError', ' เบอร์ฉุกเฉินต้องเป็นตัวเลข 10 หลัก');
+                    return;
+                }
+                if (users[email]) {
+                    document.getElementById('registerEmail').classList.add('error');
+                    showMessage('registerError', ' อีเมลนี้ถูกใช้งานแล้ว กรุณาใช้อีเมลอื่น');
+                    return;
+                }
+                users[email] = {
+                    password,
+                    firstName,
+                    lastName,
+                    age,
+                    birthDate,
+                    gender,
+                    phone,
+                    emergencyPhone,
+                    drugAllergy,
+                    congenitalDisease,
+                    registeredDate: new Date().toISOString(),
+                    userType: 'patient'
+                };
+                saveUsers(users);
+                showModal(`${firstName} ${lastName}`);
+                e.target.reset();
             }
-            const gender = genderElement.value;
-
-            if (phone.length !== 10 || !/^\d{10}$/.test(phone)) {
-                document.getElementById('phone').classList.add('error');
-                showMessage('registerError', ' เบอร์โทรศัพท์ต้องเป็นตัวเลข 10 หลัก');
-                return;
-            }
-
-            if (emergencyPhone.length !== 10 || !/^\d{10}$/.test(emergencyPhone)) {
-                document.getElementById('emergencyPhone').classList.add('error');
-                showMessage('registerError', ' เบอร์ฉุกเฉินต้องเป็นตัวเลข 10 หลัก');
-                return;
-            }
-
-            if (users[email]) {
-                document.getElementById('registerEmail').classList.add('error');
-                showMessage('registerError', ' อีเมลนี้ถูกใช้งานแล้ว กรุณาใช้อีเมลอื่น');
-                return;
-            }
-
-            users[email] = {
-                password,
-                firstName,
-                lastName,
-                age,
-                birthDate,
-                gender,
-                phone,
-                emergencyPhone,
-                drugAllergy,
-                congenitalDisease,
-                registeredDate: new Date().toISOString()
-            };
-            
-            saveUsers(users);
-            console.log(' บันทึกข้อมูลสำเร็จ!');
-            
-            showModal(`${firstName} ${lastName}`);
-            e.target.reset();
         }
 
         function handleLogin(e) {
@@ -916,9 +976,11 @@
 
         function showHomePage(userData, email) {
             // Save user data to sessionStorage (already done before calling this)
-            window.location.href = 'home.html';
-            // หลังจาก redirect ข้อมูลจะถูกดึงไปแสดงใน home.html โดยอัตโนมัติ
-            // console.log(' เข้าสู่ระบบสำเร็จ:', userData);
+            if (currentUserType === 'doctor' || email.endsWith('@clinic')) {
+                window.location.href = 'doctor_home.html';
+            } else {
+                window.location.href = 'home.html';
+            }
         }
 
         function handleLogout() {
