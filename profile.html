@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โปรไฟล์คนไข้ - คลินิกทันตกรรมสุภัทร</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .profile-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 40px 30px;
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #f8f9fa;
+            margin-bottom: 15px;
+            border: 3px solid #667eea;
+        }
+        .upload-btn {
+            display: block;
+            margin: 0 auto 15px auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 18px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .profile-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .profile-email {
+            color: #667eea;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+        .info-section {
+            margin-bottom: 25px;
+        }
+        .info-section h3 {
+            color: #764ba2;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .info-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 18px;
+            border-radius: 8px;
+        }
+        .info-row {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #555;
+        }
+        .info-value {
+            color: #333;
+        }
+        .back-btn {
+            display: block;
+            margin: 30px auto 0 auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        @media (max-width: 600px) {
+            .profile-container {
+                padding: 20px 5px;
+            }
+            .info-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="" alt="รูปโปรไฟล์" class="profile-img" id="profileImg">
+            <input type="file" id="imgInput" accept="image/*" style="display:none">
+            <button class="upload-btn" onclick="document.getElementById('imgInput').click()">เลือกรูปโปรไฟล์</button>
+            <div class="profile-name" id="profileName"></div>
+            <div class="profile-email" id="profileEmail"></div>
+        </div>
+        <div class="info-section">
+            <h3>ข้อมูลส่วนตัว</h3>
+            <div class="info-card">
+                <div class="info-row">
+                    <div class="info-label">ชื่อ-นามสกุล:</div>
+                    <div class="info-value" id="displayName"></div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">อีเมล:</div>
+                    <div class="info-value" id="displayEmail"></div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">เบอร์โทรศัพท์:</div>
+                    <div class="info-value" id="displayPhone"></div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">เบอร์ฉุกเฉิน:</div>
+                    <div class="info-value" id="displayEmergencyPhone"></div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">วันเกิด:</div>
+                    <div class="info-value" id="displayBirthDate"></div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">อายุ:</div>
+                    <div class="info-value" id="displayAge"></div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">เพศ:</div>
+                    <div class="info-value" id="displayGender"></div>
+                </div>
+            </div>
+        </div>
+        <div class="info-section">
+            <h3>ข้อมูลสุขภาพ</h3>
+            <div class="info-card">
+                <div class="info-row">
+                    <div class="info-label">การแพ้ยา:</div>
+                    <div class="info-value" id="displayDrugAllergy"></div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">โรคประจำตัว:</div>
+                    <div class="info-value" id="displayCongenitalDisease"></div>
+                </div>
+            </div>
+        </div>
+        <button class="back-btn" onclick="window.location.href='home.html'">กลับหน้าหลัก</button>
+    </div>
+    <script>
+        window.addEventListener('load', function() {
+            const currentUser = sessionStorage.getItem('currentUser');
+            if (!currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+            const userData = JSON.parse(currentUser);
+            if (userData.userType !== 'patient') {
+                window.location.href = 'doctor_home.html';
+                return;
+            }
+            document.getElementById('profileName').textContent = `${userData.firstName} ${userData.lastName}`;
+            document.getElementById('profileEmail').textContent = userData.email;
+            document.getElementById('displayName').textContent = `${userData.firstName} ${userData.lastName}`;
+            document.getElementById('displayEmail').textContent = userData.email;
+            document.getElementById('displayPhone').textContent = userData.phone;
+            document.getElementById('displayEmergencyPhone').textContent = userData.emergencyPhone;
+            document.getElementById('displayAge').textContent = `${userData.age} ปี`;
+            const birthDateFormatted = new Date(userData.birthDate).toLocaleDateString('th-TH', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('displayBirthDate').textContent = birthDateFormatted;
+            const genderText = userData.gender === 'male' ? 'ชาย' : userData.gender === 'female' ? 'หญิง' : 'อื่นๆ';
+            document.getElementById('displayGender').textContent = genderText;
+            document.getElementById('displayDrugAllergy').textContent = userData.drugAllergy;
+            document.getElementById('displayCongenitalDisease').textContent = userData.congenitalDisease;
+            // โหลดรูปโปรไฟล์จาก localStorage ถ้ามี
+            const imgData = localStorage.getItem('profileImg_' + userData.email);
+            if (imgData) {
+                document.getElementById('profileImg').src = imgData;
+            } else {
+                document.getElementById('profileImg').src = 'https://cdn-icons-png.flaticon.com/512/1946/1946429.png';
+            }
+        });
+        // อัพโหลดและบันทึกรูปโปรไฟล์
+        document.getElementById('imgInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                document.getElementById('profileImg').src = evt.target.result;
+                // save to localStorage
+                const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+                localStorage.setItem('profileImg_' + currentUser.email, evt.target.result);
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>

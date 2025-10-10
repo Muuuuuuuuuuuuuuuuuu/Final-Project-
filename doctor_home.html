@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หน้าหลักทันตแพทย์ - คลินิกทันตกรรมสุภัทร</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .doctor-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .doctor-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .doctor-header .welcome {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-self: flex-end;
+        }
+        .logout-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+        .doctor-content {
+            background: white;
+            padding: 40px;
+            border-radius: 0 0 20px 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+        }
+        .stat-title {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        .stat-value {
+            font-size: 28px;
+            color: #764ba2;
+            font-weight: bold;
+        }
+        .appointments-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .appointments-table th, .appointments-table td {
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            text-align: left;
+        }
+        .appointments-table th {
+            background: #667eea;
+            color: white;
+        }
+        .appointments-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        @media (max-width: 768px) {
+            .doctor-content {
+                padding: 20px 5px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="doctorHome">
+        <div class="doctor-header">
+            <h1>คลินิกทันตกรรมสุภัทร</h1>
+            <div class="welcome" id="doctorWelcome"></div>
+            <button class="logout-btn" onclick="handleLogout()">ออกจากระบบ</button>
+        </div>
+        <div class="doctor-content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-title">คนไข้ที่นัดวันนี้</div>
+                    <div class="stat-value" id="statTotalAppointments">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">รักษาเสร็จวันนี้</div>
+                    <div class="stat-value" id="statCompleted">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">รอการรักษา</div>
+                    <div class="stat-value" id="statWaiting">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">ยกเลิกนัดวันนี้</div>
+                    <div class="stat-value" id="statCancelled">0</div>
+                </div>
+            </div>
+            <h2>ตารางนัดหมายวันนี้</h2>
+            <table class="appointments-table">
+                <thead>
+                    <tr>
+                        <th>เวลา</th>
+                        <th>ชื่อคนไข้</th>
+                        <th>สถานะ</th>
+                    </tr>
+                </thead>
+                <tbody id="appointmentsBody">
+                    <!-- ข้อมูลนัดหมายจะถูกเติมโดย JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function handleLogout() {
+            sessionStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+        // Mock data สำหรับ demo
+        const mockAppointments = [
+            { time: '09:00', name: 'สมชาย ใจดี', status: 'รอรักษา' },
+            { time: '10:00', name: 'สุดา สวยงาม', status: 'รักษาเสร็จ' },
+            { time: '11:00', name: 'ประภา ยกเลิก', status: 'ยกเลิก' },
+            { time: '13:00', name: 'วรัญญา รอรักษา', status: 'รอรักษา' },
+            { time: '14:00', name: 'ณัฐวุฒิ รักษาเสร็จ', status: 'รักษาเสร็จ' }
+        ];
+        window.addEventListener('load', function() {
+            const currentUser = sessionStorage.getItem('currentUser');
+            if (!currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+            const userData = JSON.parse(currentUser);
+            if (userData.userType !== 'doctor') {
+                window.location.href = 'home.html';
+                return;
+            }
+            document.getElementById('doctorWelcome').textContent = `สวัสดี คุณ${userData.firstName} ${userData.lastName}`;
+            // สถิติ
+            let total = 0, completed = 0, waiting = 0, cancelled = 0;
+            mockAppointments.forEach(app => {
+                total++;
+                if (app.status === 'รักษาเสร็จ') completed++;
+                else if (app.status === 'รอรักษา') waiting++;
+                else if (app.status === 'ยกเลิก') cancelled++;
+            });
+            document.getElementById('statTotalAppointments').textContent = total;
+            document.getElementById('statCompleted').textContent = completed;
+            document.getElementById('statWaiting').textContent = waiting;
+            document.getElementById('statCancelled').textContent = cancelled;
+            // ตารางนัดหมาย
+            const tbody = document.getElementById('appointmentsBody');
+            tbody.innerHTML = '';
+            mockAppointments.forEach(app => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${app.time}</td><td>${app.name}</td><td>${app.status}</td>`;
+                tbody.appendChild(tr);
+            });
+        });
+    </script>
+</body>
+</html>

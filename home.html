@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หน้าหลัก - คลินิกทันตกรรมสุภัทร</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .home-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .home-header-left {
+            flex: 1;
+        }
+        .home-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .user-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .logout-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+        .home-content {
+            background: white;
+            padding: 40px;
+            border-radius: 0 0 20px 20px;
+        }
+        .info-section {
+            margin-bottom: 30px;
+        }
+        .info-section h3 {
+            color: #667eea;
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .info-row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #555;
+        }
+        .info-value {
+            color: #333;
+        }
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .action-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        .action-btn .icon {
+            font-size: 40px;
+        }
+        @media (max-width: 768px) {
+            .home-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .info-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 600px) {
+            .home-content {
+                padding: 30px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="homePage">
+        <div class="home-header">
+            <div class="home-header-left">
+                <h1>
+                    <span>คลินิกทันตกรรมสุภัทร</span>
+                </h1>
+                <div id="welcomeMessage" style="font-size: 22px; font-weight: bold; margin-top: 10px;"></div>
+                <div class="user-badge" id="userBadge"></div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <button class="profile-btn" onclick="window.location.href='profile.html'" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; padding: 10px 18px; border-radius: 50px; font-size: 16px; font-weight: 600; cursor: pointer;">
+                    👤 โปรไฟล์
+                </button>
+                <button class="logout-btn" onclick="handleLogout()">
+                     ออกจากระบบ
+                </button>
+            </div>
+        </div>
+        <div class="home-content">
+            <div class="action-buttons" style="margin-bottom: 30px;">
+                <button class="action-btn" onclick="window.location.href='profile.html'">
+                    <span class="icon">👤</span>
+                    <span>โปรไฟล์ของฉัน</span>
+                </button>
+                <button class="action-btn" onclick="alert('ฟังก์ชันประวัติการนัดหมาย (Demo)')">
+                    <span class="icon">📅</span>
+                    <span>ประวัติการนัดหมาย</span>
+                </button>
+                <button class="action-btn" onclick="alert('ฟังก์ชันประวัติการรักษา (Demo)')">
+                    <span class="icon">🦷</span>
+                    <span>ประวัติการรักษา</span>
+                </button>
+            </div>
+            <div class="info-section">
+                <h3> ที่อยู่ คลินิกทันตกรรมสุภัทร</h3>
+                <div class="info-card">
+                    <div class="info-row">
+                        <div class="info-label">ที่อยู่:</div>
+                        <div class="info-value">888/1 เกษตรศาสตร์ กำแพงแสน นรคปบม 70154</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">เบอร์โทรคลินิก:</div>
+                        <div class="info-value">065-493-XXXX</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">เปิด/ปิดคลินิก:</div>
+                        <div class="info-value">จันทร์ - ศุกร์: 09:00 - 19:00</div>
+                        <div class="info-value">เสาร์ 10:00 - 19:00</div>
+                        <div class="info-value">อาทิตย์: ปิดทำการ</div>
+                    </div>
+                </div>
+            </div>
+            <div class="info-section">
+                <h3> บริการของเรา</h3>
+                <div class="info-card">
+                    <ul style="margin-left: 20px;">
+                        <li>ขูดหินปูน</li>
+                        <li>อุดฟัน</li>
+                        <li>ถอนฟัน</li>
+                        <li>รักษารากฟัน</li>
+                        <li>ฟอกสีฟัน</li>
+                        <li>จัดฟัน</li>
+                        <li>ตรวจสุขภาพช่องปาก</li>
+                        <li>และบริการอื่นๆ</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function handleLogout() {
+            sessionStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+        window.addEventListener('load', function() {
+            const currentUser = sessionStorage.getItem('currentUser');
+            if (!currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+            const userData = JSON.parse(currentUser);
+            if (userData.userType !== 'patient') {
+                window.location.href = 'doctor_home.html';
+                return;
+            }
+            document.getElementById('welcomeMessage').textContent = `สวัสดี คุณ${userData.firstName} ${userData.lastName}`;
+            document.getElementById('userBadge').innerHTML = 'คนไข้';
+            document.getElementById('displayName').textContent = `${userData.firstName} ${userData.lastName}`;
+            document.getElementById('displayEmail').textContent = userData.email;
+            document.getElementById('displayAge').textContent = `${userData.age} ปี`;
+            const birthDateFormatted = new Date(userData.birthDate).toLocaleDateString('th-TH', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('displayBirthDate').textContent = birthDateFormatted;
+            const genderText = userData.gender === 'male' ? 'ชาย' : userData.gender === 'female' ? 'หญิง' : 'อื่นๆ';
+            document.getElementById('displayGender').textContent = genderText;
+            document.getElementById('displayPhone').textContent = userData.phone;
+            document.getElementById('displayEmergencyPhone').textContent = userData.emergencyPhone;
+            document.getElementById('displayDrugAllergy').textContent = userData.drugAllergy;
+            document.getElementById('displayCongenitalDisease').textContent = userData.congenitalDisease;
+        });
+    </script>
+</body>
+</html>
